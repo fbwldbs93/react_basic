@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script>
+    const root = document.getElementById("root");
+    const span = React.createElement(
+      "h3", //tag
+      {
+        onMouseEnter: () => console.log("mouse enter"),
+      }, //property
+      "Hello I'm a span" //text
+    );
+    /*
+        {} => property
+        - id
+        - class
+        - 등등..
+    */
+    const btn = React.createElement(
+      "button",
+      {
+        onClick: () => console.log("I'm clicked"),
+        style: { backgroundColor: "tomato" },
+      },
+      "Click me"
+    );
+    const container = React.createElement("div", null, [span, btn]);
+    ReactDOM.render(container, root);
+    //span 을 root 에 출력시켜줘라는 뜻
+  </script>
+</html>
+
+<!-- 
+    React 는 엔진
+    react-dom 은 react element 를 HTML 에 두는 역할을 함
+
+    React JS
+    - Javascript 에서 시작하고 HTML 으로 끝남
+    - 결과물인 HTML 을 업데이트 할 수 있음
+ -->
