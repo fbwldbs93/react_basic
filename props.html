@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+    //함수형 컴포넌트
+    function Btn({ text, onClick }) {
+      //   console.log(props);
+      console.log(text, "has rendered");
+      /*
+        Btn 이 넘겨주는 값을 props 가 받아옴
+        - 즉,  Btn() 함수는 첫번째 인자로 Btn text 값을 받아옴
+        - props 는 첫번째이자 유일한 인자임
+            :: Btn() 함수가 전달 받는 유일한 인자
+            :: props 는 오브젝트임
+
+        ----------
+
+        Btn 이 text="Save Changes" x={false} ....등 여러 값을 넘겨주면
+        Btn() 함수의 props 는
+        {
+            text:"Save Changes",
+            x:false
+        }
+        와 같이 오브젝트로서 가져오고 저장함!
+
+        -----
+        props.text 이렇게 불러올 수 있지만!
+
+        좀 더 간단하게
+        {text} 로 가져오면 바로 사용할 수 있음
+
+      */
+      return (
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            borderRadius: 10,
+            border: 0,
+          }}
+          onClick={onClick}
+        >
+          {text}
+        </button>
+      );
+    }
+    const MemorizedBtn = React.memo(Btn);
+    function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
+      return (
+        //JSX 의 내부
+        <div>
+          <MemorizedBtn text={value} onClick={changeValue} />
+          {/*
+            JSX내부 Btn의 onClick 은 무조건 props 전달!
+            Btn함수 컴포넌트 내부의 html 에서의 onClick 만 
+            이벤트 리스너가 됨!
+        */}
+          {/*
+                btn({text:"Save Changes"})
+                btn({text:"Continue"})
+                이런 식으로 함수로 넘겨주는 것과 같은 것
+            */}
+          <MemorizedBtn text="Continue" />
+          {/*
+            useState의 state에 따라 변경되는 props 를 가지지 않은 컴포넌트는 리렌더링 하지 않게 하고싶음!
+            ==> react memo 를 사용할 것임
+            const MemorizedBtn = React.memo(Btn);
+
+            ------
+            Memo 를 사용해야하는 이유!
+            - 하나의 state 변경이라도 있을 때 모든 자식 컴포넌트들이 리렌더링된다면?
+                ::추후에 어플리케이션이 느려지는 원인이 될 수 있음!
+            - 그래서 props 가 담은 state 가 변경되지 않는다면 다시 그릴 필요가 없다는 것을 말해줘야함!
+        */}
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
