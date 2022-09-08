@@ -2,13 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import App from './App';
 // import App2 from './App2';
-import CleanUp from './CleanUp';
+import TodoList from './TodoList';
+// import CleanUp from './CleanUp';
 // import './styles.css'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    <CleanUp />
+    // <CleanUp />
+    <TodoList />
   // </React.StrictMode>
 );

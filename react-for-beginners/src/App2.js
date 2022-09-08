@@ -59,6 +59,8 @@ function App2(){
     console.log("I run when 'keyword & counter' changes")
 
   }, [keyword, counter]);
+
+
   return(
     <div>
       <input value={keyword} onChange={onChange} type="text" placeholder='Search here...'/>
@@ -66,6 +68,8 @@ function App2(){
       <button onClick={onClick}>click me</button>
     </div>
   )
+
+  
 }
 
 export default App2;
